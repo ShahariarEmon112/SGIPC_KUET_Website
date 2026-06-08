@@ -5,11 +5,20 @@ declare(strict_types=1);
 function sgipc_db_connection(): mysqli
 {
     $host = getenv('SGIPC_DB_HOST') ?: '127.0.0.1';
-    $user = getenv('SGIPC_DB_USER') ?: 'root';
+    $user = getenv('SGIPC_DB_USER') ?: 'shahariar';
     $password = getenv('SGIPC_DB_PASSWORD') ?: '';
     $database = getenv('SGIPC_DB_NAME') ?: 'sgipc_db';
+    $port = (int)(getenv('SGIPC_DB_PORT') ?: '3307');
+    $socket = getenv('SGIPC_DB_SOCKET') ?: '/home/shahariar/sgipc_mysql_data/mysql.sock';
 
-    $connection = @new mysqli($host, $user, $password, $database);
+    // If socket doesn't exist, try connecting standard TCP with default XAMPP
+    if (!file_exists($socket)) {
+        $socket = null;
+        $port = 3306;
+        $user = 'root';
+    }
+
+    $connection = @new mysqli($host, $user, $password, $database, $port, $socket);
 
     if ($connection->connect_errno) {
         throw new RuntimeException('Database connection failed: ' . $connection->connect_error);

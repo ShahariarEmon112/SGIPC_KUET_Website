@@ -1,3 +1,30 @@
+<?php
+declare(strict_types=1);
+
+require_once __DIR__ . '/config.php';
+
+$teams = [];
+try {
+    $connection = sgipc_db_connection();
+    $result = $connection->query(
+        'SELECT team_name, overall_rank, rating, solved_count, contest_name, status FROM team_rankings ORDER BY overall_rank ASC, rating DESC'
+    );
+    if ($result instanceof mysqli_result) {
+        while ($row = $result->fetch_assoc()) {
+            $teams[] = $row;
+        }
+        $result->free();
+    }
+    $connection->close();
+} catch (Throwable $exception) {
+    // Fallback to default if DB fails
+    $teams = sgipc_default_team_rankings();
+}
+
+if ($teams === []) {
+    $teams = sgipc_default_team_rankings();
+}
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -434,42 +461,14 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>KUET_Team1</td>
-                    <td>1</td>
-                    <td>2450</td>
-                    <td>11</td>
-                  </tr>
-                  <tr>
-                    <td>KUET_Team2</td>
-                    <td>2</td>
-                    <td>2385</td>
-                    <td>10</td>
-                  </tr>
-                  <tr>
-                    <td>KUET_Team3</td>
-                    <td>3</td>
-                    <td>2310</td>
-                    <td>10</td>
-                  </tr>
-                  <tr>
-                    <td>KUET_Team4</td>
-                    <td>4</td>
-                    <td>2240</td>
-                    <td>9</td>
-                  </tr>
-                  <tr>
-                    <td>KUET_Team5</td>
-                    <td>5</td>
-                    <td>2185</td>
-                    <td>8</td>
-                  </tr>
-                  <tr>
-                    <td>KUET_Team6</td>
-                    <td>6</td>
-                    <td>2100</td>
-                    <td>8</td>
-                  </tr>
+                  <?php foreach ($teams as $team): ?>
+                    <tr>
+                      <td><?php echo sgipc_h($team['team_name'] ?? ''); ?></td>
+                      <td><?php echo (int) ($team['overall_rank'] ?? 0); ?></td>
+                      <td><?php echo (int) ($team['rating'] ?? 0); ?></td>
+                      <td><?php echo (int) ($team['solved_count'] ?? 0); ?></td>
+                    </tr>
+                  <?php endforeach; ?>
                 </tbody>
               </table>
             </div>

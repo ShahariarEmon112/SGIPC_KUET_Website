@@ -62,10 +62,10 @@ foreach ($teams as $team) {
 
     <header class="navbar">
       <div class="container nav-wrap">
-        <a class="brand" href="sgipc.html#home"
+        <a class="brand" href="index.php#home"
           ><span>SGIPC</span> - Team Formation Rankings</a
         >
-        <a class="menu-btn" style="display:inline-flex;align-items:center;justify-content:center;text-decoration:none" href="sgipc.html#home" aria-label="Back to home">←</a>
+        <a class="menu-btn" style="display:inline-flex;align-items:center;justify-content:center;text-decoration:none" href="index.php#home" aria-label="Back to home">←</a>
       </div>
     </header>
 
@@ -157,7 +157,7 @@ foreach ($teams as $team) {
 
     <footer>
       <p>&copy; 2026 Special Group Interested In Programming Contest KUET | Competitive Programming Community</p>
-      <p><a class="inline-link" href="sgipc.html#resources">Back to Resources</a></p>
+      <p><a class="inline-link" href="index.php#resources">Back to Resources</a></p>
     </footer>
   </body>
 </html>
