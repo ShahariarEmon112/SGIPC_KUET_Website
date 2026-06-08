@@ -6,12 +6,113 @@ $connection = sgipc_db_connection();
 $message = '';
 $messageType = 'success';
 
-// Handle Actions (Create, Update, Delete)
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $action = $_POST['action'] ?? '';
-    
-    // -- Team Rankings Actions --
-    if ($action === 'add_team' || $action === 'update_team') {
+    // Handle Actions (Create, Update, Delete, Member Requests)
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $action = $_POST['action'] ?? '';
+        
+        // -- Team Rankings Actions --
+        if ($action === 'add_team' || $action === 'update_team') {
+            $team_name = trim($_POST['team_name'] ?? '');
+            $overall_rank = (int)($_POST['overall_rank'] ?? 0);
+            $rating = (int)($_POST['rating'] ?? 0);
+            $solved_count = (int)($_POST['solved_count'] ?? 0);
+            $contest_name = trim($_POST['contest_name'] ?? 'Team Formation Round');
+            $status = trim($_POST['status'] ?? 'Confirmed');
+            
+            if ($action === 'add_team') {
+                $stmt = $connection->prepare('INSERT INTO team_rankings (team_name, overall_rank, rating, solved_count, contest_name, status) VALUES (?, ?, ?, ?, ?, ?)');
+                $stmt->bind_param('siiiss', $team_name, $overall_rank, $rating, $solved_count, $contest_name, $status);
+            } else {
+                $id = (int)($_POST['id'] ?? 0);
+                $stmt = $connection->prepare('UPDATE team_rankings SET team_name=?, overall_rank=?, rating=?, solved_count=?, contest_name=?, status=? WHERE id=?');
+                $stmt->bind_param('siiissi', $team_name, $overall_rank, $rating, $solved_count, $contest_name, $status, $id);
+            }
+            if ($stmt->execute()) {
+                $message = $action === 'add_team' ? "Team added successfully." : "Team updated successfully.";
+                $messageType = 'success';
+            } else {
+                $message = "Error: " . $stmt->error;
+                $messageType = 'error';
+            }
+            $stmt->close();
+        } elseif ($action === 'delete_team') {
+            $id = (int)($_POST['id'] ?? 0);
+            $stmt = $connection->prepare('DELETE FROM team_rankings WHERE id=?');
+            $stmt->bind_param('i', $id);
+            if ($stmt->execute()) {
+                $message = "Team deleted successfully.";
+                $messageType = 'success';
+            } else {
+                $message = "Error: " . $stmt->error;
+                $messageType = 'error';
+            }
+            $stmt->close();
+        }
+        // -- Registration Actions --
+        elseif ($action === 'delete_registration') {
+            $id = (int)($_POST['id'] ?? 0);
+            $stmt = $connection->prepare('DELETE FROM contest_registrations WHERE id=?');
+            $stmt->bind_param('i', $id);
+            if ($stmt->execute()) {
+                $message = "Registration deleted successfully.";
+                $messageType = 'success';
+            } else {
+                $message = "Error: " . $stmt->error;
+                $messageType = 'error';
+            }
+            $stmt->close();
+        }
+        // -- Contest Actions --
+        elseif ($action === 'add_contest' || $action === 'update_contest') {
+            $title = trim($_POST['title'] ?? '');
+            $date = $_POST['date'] ?? '';
+            $description = trim($_POST['description'] ?? '');
+            $status = trim($_POST['status'] ?? 'Upcoming');
+            if ($action === 'add_contest') {
+                $stmt = $connection->prepare('INSERT INTO contests (title, contest_date, description, status) VALUES (?, ?, ?, ?)');
+                $stmt->bind_param('ssss', $title, $date, $description, $status);
+            } else {
+                $id = (int)($_POST['id'] ?? 0);
+                $stmt = $connection->prepare('UPDATE contests SET title=?, contest_date=?, description=?, status=? WHERE id=?');
+                $stmt->bind_param('ssssi', $title, $date, $description, $status, $id);
+            }
+            if ($stmt->execute()) {
+                $message = $action === 'add_contest' ? "Contest added successfully." : "Contest updated successfully.";
+                $messageType = 'success';
+            } else {
+                $message = "Error: " . $stmt->error;
+                $messageType = 'error';
+            }
+            $stmt->close();
+        } elseif ($action === 'delete_contest') {
+            $id = (int)($_POST['id'] ?? 0);
+            $stmt = $connection->prepare('DELETE FROM contests WHERE id=?');
+            $stmt->bind_param('i', $id);
+            if ($stmt->execute()) {
+                $message = "Contest deleted successfully.";
+                $messageType = 'success';
+            } else {
+                $message = "Error: " . $stmt->error;
+                $messageType = 'error';
+            }
+            $stmt->close();
+        }
+        // -- Member Request Actions --
+        elseif ($action === 'accept_request' || $action === 'reject_request') {
+            $id = (int)($_POST['id'] ?? 0);
+            $newStatus = $action === 'accept_request' ? 'Accepted' : 'Rejected';
+            $stmt = $connection->prepare('UPDATE member_requests SET status=?, reviewed_at=NOW() WHERE id=?');
+            $stmt->bind_param('si', $newStatus, $id);
+            if ($stmt->execute()) {
+                $message = "Request {$newStatus} successfully.";
+                $messageType = 'success';
+            } else {
+                $message = "Error: " . $stmt->error;
+                $messageType = 'error';
+            }
+            $stmt->close();
+        }
+    }
         $team_name = trim($_POST['team_name'] ?? '');
         $overall_rank = (int)($_POST['overall_rank'] ?? 0);
         $rating = (int)($_POST['rating'] ?? 0);
@@ -72,6 +173,7 @@ $res = $connection->query('SELECT * FROM team_rankings ORDER BY overall_rank ASC
 while ($row = $res->fetch_assoc()) {
     $teams[] = $row;
 }
+$res->free();
 
 // Fetch Registrations
 $registrations = [];
@@ -79,8 +181,26 @@ $res = $connection->query('SELECT * FROM contest_registrations ORDER BY created_
 while ($row = $res->fetch_assoc()) {
     $registrations[] = $row;
 }
+$res->free();
 
-// Edit Mode detection
+// Fetch Contests
+$contests = [];
+$res = $connection->query('SELECT * FROM contests ORDER BY contest_date DESC');
+while ($row = $res->fetch_assoc()) {
+    $contests[] = $row;
+}
+$res->free();
+
+// Fetch Member Requests (pending only)
+$member_requests = [];
+$res = $connection->query("SELECT * FROM member_requests WHERE status='Pending' ORDER BY created_at DESC");
+while ($row = $res->fetch_assoc()) {
+    $member_requests[] = $row;
+}
+$res->free();
+
+<?php
+// Edit Mode detection for teams
 $edit_team = null;
 if (isset($_GET['edit_team'])) {
     $edit_id = (int)$_GET['edit_team'];
@@ -91,6 +211,17 @@ if (isset($_GET['edit_team'])) {
     $stmt->close();
 }
 
+// Edit Mode detection for contests
+$edit_contest = null;
+if (isset($_GET['edit_contest'])) {
+    $edit_id = (int)$_GET['edit_contest'];
+    $stmt = $connection->prepare('SELECT * FROM contests WHERE id=?');
+    $stmt->bind_param('i', $edit_id);
+    $stmt->execute();
+    $edit_contest = $stmt->get_result()->fetch_assoc();
+    $stmt->close();
+}
+?>
 $connection->close();
 ?>
 <!doctype html>
