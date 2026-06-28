@@ -1,52 +1,44 @@
-# SGIPC - Special Group Interested In Programming Contest
+# SGIPC - Special Group Interested In Programming Contest (KUET)
 
-Responsive SGIPC website for KUET with a MySQL/XAMPP backend for team formation rankings and registration handling.
+Responsive website for the SGIPC (Special Group Interested In Programming Contest) competitive programming club at KUET. The platform includes a MySQL backend for team formation standings, participant registration, and an interactive admin panel.
 
 ## What is included
 
-- `sgipc.html` - main frontend with the team rankings section and registration form
-- `sgipc.css` - existing premium visual styling
-- `config.php` - shared MySQL connection and helper functions
-- `submit_registration.php` - saves form submissions to MySQL
-- `team-rankings.php` - live database-backed ranking page
-- `database/sgipc_schema.sql` - database, tables, and seed data
+- `index.html` - main frontend landing page with team rankings and student registration
+- `index.css` - premium visual styling (dark mode, glassmorphism, responsive grids)
+- `config.php` - shared MySQL connection with auto-detection for user-space and standard XAMPP servers
+- `submit_registration.php` - processes and saves form submissions to MySQL
+- `team-rankings.php` - live database-backed rankings page and JSON endpoint
+- `admin.php` - club administrator dashboard to manage teams and view registrations
+- `database/sgipc_schema.sql` - database tables and sample seed data
 
-## Database setup
+## Database & Server Auto-Detection
 
-1. Start Apache and MySQL in XAMPP.
-2. Import `database/sgipc_schema.sql` into phpMyAdmin.
-3. The schema creates the `sgipc_db` database.
-4. The seeded team names are `KUET_Team1` through `KUET_Team6`.
+The project contains a smart database connection function (`sgipc_db_connection`) in `config.php` that automatically tries connection strategies in sequence:
+1. Custom environment variables (if set)
+2. User-space local MariaDB daemon (bound to port `3307` and Unix socket `/home/shahariar/sgipc_mysql_data/mysql.sock` as user `shahariar` with no password)
+3. Standard XAMPP server (bound to port `3306` as user `root` with no password)
 
-## Backend behavior
+This ensures the website runs seamlessly locally, inside developer environments, and inside XAMPP directories without needing manual configuration changes.
 
-- The registration form posts to `submit_registration.php`.
-- Passwords are stored as hashes, not plain text.
-- Team rankings are read from the `team_rankings` table.
-- If the database is unavailable, the rankings page falls back to seeded sample data.
+## Database Setup
 
-## Local preview
+1. Start Apache and MySQL in XAMPP (or run a custom MySQL server).
+2. Import the `database/sgipc_schema.sql` file into your MySQL database server (e.g. via phpMyAdmin or MySQL shell).
+3. The schema creates the `sgipc_db` database, setting up the `team_rankings` and `contest_registrations` tables.
 
-1. Place the project inside XAMPP `htdocs`.
-2. Open `sgipc.html` for the main page.
-3. Open `team-rankings.php` to view the live ranking page.
-4. Use the Resources section for MySQL, XAMPP, Workbench, and SQL practice links.
+## Club Administrator Dashboard
 
-## Core sections on the page
+The application features a secure, premium admin dashboard at `admin.php` to let club coordinators manage the portal:
+- **Demo Username**: `admin`
+- **Demo Password**: `admin123`
+- **Features**:
+  - View overall registration metrics (total registrations, active teams, average rating).
+  - Manage live standings (Add new teams, Edit rating/solved counts/status, Delete teams).
+  - Manage applications (View registration details, delete registrations).
 
-- Home and achievements
-- About SGIPC
-- Highlights and useful links
-- Contest performance
-- Practice roadmap
-- Join the SGIPC community
-- Team formation update
-- Team formation rankings
-- Learning roadmap
-- Resources
-- Guidelines
+## Local Preview
 
-## Notes
-
-- The UI is built with gradients, cards, and responsive grids.
-- The rankings section uses KUET-style team names and overall ratings.
+1. Start your local web and database servers.
+2. Place the project files inside your local web root directory (e.g. `htdocs` for XAMPP).
+3. Open `index.html` (or serve via PHP local development server `php -S 127.0.0.1:8080`).

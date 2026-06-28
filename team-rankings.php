@@ -30,6 +30,16 @@ if ($teams === []) {
     $teams = sgipc_default_team_rankings();
 }
 
+if (isset($_GET['format']) && $_GET['format'] === 'json') {
+    header('Content-Type: application/json');
+    echo json_encode([
+        'status' => $dbError ? 'fallback' : 'success',
+        'error' => $dbError,
+        'teams' => $teams
+    ]);
+    exit;
+}
+
 $totalTeams = count($teams);
 $averageRating = $totalTeams > 0
     ? (int) round(array_sum(array_map(static fn (array $team): int => (int) $team['rating'], $teams)) / $totalTeams)
@@ -53,7 +63,7 @@ foreach ($teams as $team) {
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Sora:wght@700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="sgipc.css" />
+    <link rel="stylesheet" href="index.css" />
   </head>
   <body>
     <div class="topbar">
@@ -62,10 +72,10 @@ foreach ($teams as $team) {
 
     <header class="navbar">
       <div class="container nav-wrap">
-        <a class="brand" href="sgipc.html#home"
+        <a class="brand" href="index.html#home"
           ><span>SGIPC</span> - Team Formation Rankings</a
         >
-        <a class="menu-btn" style="display:inline-flex;align-items:center;justify-content:center;text-decoration:none" href="sgipc.html#home" aria-label="Back to home">←</a>
+        <a class="menu-btn" style="display:inline-flex;align-items:center;justify-content:center;text-decoration:none" href="index.html#home" aria-label="Back to home">←</a>
       </div>
     </header>
 
@@ -157,7 +167,7 @@ foreach ($teams as $team) {
 
     <footer>
       <p>&copy; 2026 Special Group Interested In Programming Contest KUET | Competitive Programming Community</p>
-      <p><a class="inline-link" href="sgipc.html#resources">Back to Resources</a></p>
+      <p><a class="inline-link" href="index.html#resources">Back to Resources</a></p>
     </footer>
   </body>
 </html>

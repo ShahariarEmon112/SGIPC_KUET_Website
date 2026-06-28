@@ -415,10 +415,9 @@
         <h2>Team Formation Rankings</h2>
         <div class="grid-2 demo-grid">
           <article class="card">
-            <h3>Current Database Snapshot</h3>
+            <h3>Current Standings</h3>
             <p class="muted">
-              The following seeded teams are stored in MySQL and power the live
-              SGIPC rankings view.
+              Standings pulled from the SGIPC MySQL database, representing team performance in the formation round.
             </p>
             <div class="table-wrap">
               <table
@@ -433,7 +432,7 @@
                     <th>Solved</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody id="rankings-table-body">
                   <tr>
                     <td>KUET_Team1</td>
                     <td>1</td>
@@ -472,6 +471,28 @@
                   </tr>
                 </tbody>
               </table>
+            </div>
+          </article>
+
+          <article class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <h3>Database & Administration</h3>
+              <p class="muted" style="margin-top: 10px;">
+                SGIPC uses a MySQL database to store team rankings, track solved problems, and manage registrations.
+              </p>
+              <div style="margin-top: 20px; padding: 16px; border-radius: 12px; background: rgba(10, 18, 35, 0.4); border: 1px solid var(--line);">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+                  <span style="font-weight: 600;">MySQL Connection:</span>
+                  <span id="db-status-badge" style="font-size: 0.8rem; padding: 4px 10px; border-radius: 999px; background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.35); color: #f5a5a5; font-weight: 600; transition: all 0.3s;">Connecting...</span>
+                </div>
+                <p id="db-status-desc" class="muted" style="font-size: 0.85rem;">
+                  Attempting to connect to the live backend server.
+                </p>
+              </div>
+            </div>
+            <div style="margin-top: 20px; display: flex; gap: 12px; flex-wrap: wrap;">
+              <a href="team-rankings.php" class="inline-link" style="padding: 10px 16px; border: 1px solid var(--line); border-radius: 10px; background: rgba(255,255,255,0.02); text-decoration: none; font-size: 0.9rem; transition: background 0.2s;">Live Rankings Page</a>
+              <a href="admin.php" class="inline-link" style="padding: 10px 16px; border: 1px solid var(--accent); border-radius: 10px; background: rgba(217, 177, 95, 0.08); text-decoration: none; font-size: 0.9rem; transition: background 0.2s;">Admin Dashboard</a>
             </div>
           </article>
         </div>
@@ -701,6 +722,73 @@
       autoSlide();
       showFeaturedSlides(featuredSlideIndex);
       autoFeaturedSlide();
+
+      // Live Database Standings Dynamic Loader
+      function loadLiveStandings() {
+        const tableBody = document.getElementById('rankings-table-body');
+        const statusBadge = document.getElementById('db-status-badge');
+        const statusDesc = document.getElementById('db-status-desc');
+
+        if (!tableBody) return;
+
+        fetch('team-rankings.php?format=json')
+          .then(response => {
+            if (!response.ok) throw new Error('Network response error');
+            return response.json();
+          })
+          .then(data => {
+            if (data.status === 'success') {
+              statusBadge.textContent = 'Connected';
+              statusBadge.style.background = 'rgba(72, 187, 120, 0.15)';
+              statusBadge.style.border = '1px solid rgba(72, 187, 120, 0.4)';
+              statusBadge.style.color = '#c6f6d5';
+              statusDesc.textContent = 'Successfully loaded live data from MySQL.';
+            } else {
+              statusBadge.textContent = 'Fallback Mode';
+              statusBadge.style.background = 'rgba(217, 177, 95, 0.15)';
+              statusBadge.style.border = '1px solid rgba(217, 177, 95, 0.4)';
+              statusBadge.style.color = '#fef3c7';
+              statusDesc.textContent = data.error || 'Using default standings (MySQL empty or loading fallback).';
+            }
+
+            if (data.teams && data.teams.length > 0) {
+              let rows = '';
+              data.teams.forEach(team => {
+                rows += `
+                  <tr>
+                    <td style="font-weight: 600;">${escapeHtml(team.team_name)}</td>
+                    <td>${parseInt(team.overall_rank)}</td>
+                    <td style="color: var(--accent-soft); font-weight: 700;">${parseInt(team.rating)}</td>
+                    <td>${parseInt(team.solved_count)} Problems</td>
+                  </tr>
+                `;
+              });
+              tableBody.innerHTML = rows;
+            }
+          })
+          .catch(err => {
+            statusBadge.textContent = 'Static Fallback';
+            statusBadge.style.background = 'rgba(239, 68, 68, 0.12)';
+            statusBadge.style.border = '1px solid rgba(239, 68, 68, 0.35)';
+            statusBadge.style.color = '#f5a5a5';
+            statusDesc.textContent = 'Database offline or server not started. Showing static standings.';
+            console.log('Database rankings query failed: ', err);
+          });
+      }
+
+      function escapeHtml(str) {
+        return String(str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#039;');
+      }
+
+      // Run loader on load
+      document.addEventListener('DOMContentLoaded', loadLiveStandings);
+      // Also run it immediately in case DOMContentLoaded already fired
+      loadLiveStandings();
     </script>
   </body>
 </html>

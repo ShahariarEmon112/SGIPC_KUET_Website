@@ -1,0 +1,17 @@
+# Ignore everything in the home directory by default
+*
+
+# Allow the .gitignore itself
+!.gitignore
+
+# Allow the project's source files
+!README.md
+!config.php
+!index.html
+!index.css
+!submit_registration.php
+!team-rankings.php
+!photo*.jpg
+!photo_*.jpg
+!database/
+!database/**
