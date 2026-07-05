@@ -5,7 +5,7 @@ declare(strict_types=1);
 require __DIR__ . '/config.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: index.php#form-demo');
+    header('Location: index.html#form-demo');
     exit;
 }
 
@@ -56,7 +56,7 @@ if ($errors !== []) {
         'status' => 'error',
         'message' => $errors[0],
     ]);
-    header('Location: index.php?' . $query . '#form-demo');
+    header('Location: index.html?' . $query . '#form-demo');
     exit;
 }
 
@@ -95,13 +95,13 @@ try {
         'status' => 'success',
         'message' => 'Registration saved to MySQL successfully.',
     ]);
-    header('Location: index.php?' . $query . '#form-demo');
+    header('Location: index.html?' . $query . '#form-demo');
     exit;
 } catch (Throwable $exception) {
     $query = http_build_query([
         'status' => 'error',
         'message' => 'Database save failed. Import the schema in XAMPP first.',
     ]);
-    header('Location: index.php?' . $query . '#form-demo');
+    header('Location: index.html?' . $query . '#form-demo');
     exit;
 }

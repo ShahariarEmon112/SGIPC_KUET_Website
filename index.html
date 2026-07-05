@@ -13,967 +13,782 @@
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Sora:wght@700;800&display=swap"
       rel="stylesheet"
     />
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      body {
-        font-family: 'Manrope', sans-serif;
-        color: #333;
-        line-height: 1.6;
-      }
-
-      /* ============ TOPBAR ============ */
-      .topbar {
-        background-color: #333;
-        color: white;
-        padding: 12px;
-        text-align: center;
-        font-size: 14px;
-        font-weight: 600;
-      }
-
-      /* ============ NAVBAR ============ */
-      .navbar {
-        background: white;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        position: sticky;
-        top: 0;
-        z-index: 100;
-      }
-
-      .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 20px;
-      }
-
-      .nav-wrap {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 15px 0;
-      }
-
-      .brand {
-        font-size: 20px;
-        font-weight: 700;
-        text-decoration: none;
-        color: #333;
-        display: flex;
-        gap: 5px;
-      }
-
-      .brand span {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
-
-      .menu {
-        display: flex;
-        list-style: none;
-        gap: 30px;
-        align-items: center;
-      }
-
-      .menu a {
-        text-decoration: none;
-        color: #333;
-        font-weight: 600;
-        font-size: 14px;
-        transition: color 0.3s;
-      }
-
-      .menu a:hover {
-        color: #667eea;
-      }
-
-      .menu-btn {
-        display: none;
-        background: none;
-        border: none;
-        font-size: 24px;
-        cursor: pointer;
-      }
-
-      /* ============ HERO SECTION ============ */
-      .reveal {
-        padding: 80px 20px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        text-align: center;
-      }
-
-      .tagline {
-        font-size: 16px;
-        font-weight: 600;
-        margin-bottom: 20px;
-        opacity: 0.9;
-      }
-
-      .reveal h1 {
-        font-size: 56px;
-        font-weight: 800;
-        margin-bottom: 20px;
-        line-height: 1.2;
-        font-family: 'Sora', sans-serif;
-      }
-
-      .reveal p {
-        font-size: 18px;
-        margin-bottom: 30px;
-        opacity: 0.9;
-        max-width: 600px;
-        margin-left: auto;
-        margin-right: auto;
-      }
-
-      .cta-buttons {
-        display: flex;
-        gap: 15px;
-        justify-content: center;
-        flex-wrap: wrap;
-        margin-top: 30px;
-      }
-
-      .btn {
-        padding: 14px 30px;
-        border: none;
-        border-radius: 8px;
-        font-weight: 700;
-        cursor: pointer;
-        text-decoration: none;
-        transition: all 0.3s;
-        font-size: 14px;
-      }
-
-      .btn-primary {
-        background: white;
-        color: #667eea;
-      }
-
-      .btn-primary:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-      }
-
-      .btn-secondary {
-        background: transparent;
-        color: white;
-        border: 2px solid white;
-      }
-
-      .btn-secondary:hover {
-        background: rgba(255, 255, 255, 0.1);
-        transform: translateY(-3px);
-      }
-
-      /* ============ SECTIONS ============ */
-      section {
-        padding: 60px 20px;
-      }
-
-      section h2 {
-        font-size: 40px;
-        font-weight: 800;
-        margin-bottom: 40px;
-        text-align: center;
-        font-family: 'Sora', sans-serif;
-      }
-
-      section p {
-        font-size: 16px;
-        color: #666;
-        line-height: 1.8;
-      }
-
-      /* ============ ABOUT SECTION ============ */
-      #about {
-        background: #f9f9f9;
-      }
-
-      .about-content {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 50px;
-        align-items: center;
-      }
-
-      .about-text h3 {
-        font-size: 28px;
-        margin-bottom: 20px;
-        color: #333;
-      }
-
-      .about-text ul {
-        list-style: none;
-        margin-top: 20px;
-      }
-
-      .about-text li {
-        padding: 12px 0;
-        padding-left: 30px;
-        position: relative;
-        color: #666;
-        font-size: 15px;
-      }
-
-      .about-text li:before {
-        content: '✓';
-        position: absolute;
-        left: 0;
-        color: #667eea;
-        font-weight: 700;
-        font-size: 18px;
-      }
-
-      .about-image {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        height: 400px;
-        border-radius: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-size: 80px;
-      }
-
-      /* ============ HIGHLIGHTS SECTION ============ */
-      #content-demo {
-        background: white;
-      }
-
-      .highlights-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 30px;
-      }
-
-      .highlight-card {
-        background: white;
-        padding: 30px;
-        border-radius: 12px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-        text-align: center;
-        transition: all 0.3s;
-        border: 2px solid transparent;
-      }
-
-      .highlight-card:hover {
-        border-color: #667eea;
-        transform: translateY(-10px);
-        box-shadow: 0 12px 30px rgba(102, 126, 234, 0.2);
-      }
-
-      .highlight-icon {
-        font-size: 48px;
-        margin-bottom: 15px;
-      }
-
-      .highlight-card h3 {
-        font-size: 20px;
-        margin-bottom: 10px;
-        color: #333;
-      }
-
-      .highlight-card p {
-        color: #666;
-        font-size: 14px;
-      }
-
-      /* ============ PERFORMANCE TABLE ============ */
-      #table-demo {
-        background: #f9f9f9;
-      }
-
-      .table-wrapper {
-        background: white;
-        border-radius: 12px;
-        overflow: hidden;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-      }
-
-      table {
-        width: 100%;
-        border-collapse: collapse;
-      }
-
-      thead {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-      }
-
-      th {
-        padding: 18px;
-        text-align: left;
-        font-weight: 700;
-        font-size: 14px;
-      }
-
-      td {
-        padding: 16px 18px;
-        border-bottom: 1px solid #eee;
-      }
-
-      tbody tr:hover {
-        background: #f5f5f5;
-      }
-
-      .rank-badge {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 35px;
-        height: 35px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        border-radius: 50%;
-        font-weight: 700;
-        font-size: 14px;
-      }
-
-      .status-badge {
-        display: inline-block;
-        padding: 6px 12px;
-        border-radius: 20px;
-        font-size: 12px;
-        font-weight: 600;
-      }
-
-      .badge-confirmed {
-        background: #d4edda;
-        color: #155724;
-      }
-
-      .badge-standby {
-        background: #fff3cd;
-        color: #856404;
-      }
-
-      /* ============ PRACTICE PLAN ============ */
-      #list-demo {
-        background: white;
-      }
-
-      .practice-list {
-        max-width: 600px;
-        margin: 0 auto;
-      }
-
-      .practice-item {
-        background: #f9f9f9;
-        padding: 20px;
-        margin-bottom: 15px;
-        border-left: 4px solid #667eea;
-        border-radius: 4px;
-        cursor: pointer;
-        transition: all 0.3s;
-      }
-
-      .practice-item:hover {
-        background: white;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        padding-left: 25px;
-      }
-
-      .practice-item h4 {
-        color: #333;
-        margin-bottom: 8px;
-        font-size: 16px;
-      }
-
-      .practice-item p {
-        color: #666;
-        font-size: 14px;
-        margin: 0;
-      }
-
-      /* ============ JOIN FORM ============ */
-      #form-demo {
-        background: linear-gradient(
-          135deg,
-          rgba(102, 126, 234, 0.1) 0%,
-          rgba(118, 75, 162, 0.1) 100%
-        );
-      }
-
-      .form-container {
-        max-width: 500px;
-        margin: 0 auto;
-        background: white;
-        padding: 40px;
-        border-radius: 12px;
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-      }
-
-      .form-group {
-        margin-bottom: 25px;
-      }
-
-      .form-group label {
-        display: block;
-        margin-bottom: 10px;
-        font-weight: 600;
-        color: #333;
-        font-size: 14px;
-      }
-
-      .form-group input,
-      .form-group textarea {
-        width: 100%;
-        padding: 12px;
-        border: 2px solid #e0e0e0;
-        border-radius: 8px;
-        font-family: 'Manrope', sans-serif;
-        font-size: 14px;
-        transition: border-color 0.3s;
-      }
-
-      .form-group input:focus,
-      .form-group textarea:focus {
-        outline: none;
-        border-color: #667eea;
-      }
-
-      .form-group textarea {
-        resize: vertical;
-        min-height: 120px;
-      }
-
-      .checkbox-group {
-        margin-top: 15px;
-      }
-
-      .checkbox-item {
-        display: flex;
-        align-items: center;
-        margin-bottom: 10px;
-      }
-
-      .checkbox-item input[type='checkbox'] {
-        width: auto;
-        margin-right: 10px;
-        cursor: pointer;
-      }
-
-      .checkbox-item label {
-        margin: 0;
-        cursor: pointer;
-        font-weight: 400;
-      }
-
-      .form-submit {
-        width: 100%;
-        padding: 14px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        border: none;
-        border-radius: 8px;
-        font-weight: 700;
-        font-size: 16px;
-        cursor: pointer;
-        transition: transform 0.2s;
-      }
-
-      .form-submit:hover {
-        transform: translateY(-2px);
-      }
-
-      /* ============ TEAM UPDATE SECTION ============ */
-      #team-update {
-        background: white;
-      }
-
-      .update-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 25px;
-      }
-
-      .update-card {
-        background: #f9f9f9;
-        padding: 25px;
-        border-radius: 12px;
-        border-left: 4px solid #667eea;
-      }
-
-      .update-card h4 {
-        color: #333;
-        margin-bottom: 10px;
-        font-size: 18px;
-      }
-
-      .update-date {
-        color: #999;
-        font-size: 12px;
-        margin-bottom: 10px;
-      }
-
-      .update-card p {
-        color: #666;
-        font-size: 14px;
-        line-height: 1.6;
-      }
-
-      /* ============ FOOTER ============ */
-      footer {
-        background: #333;
-        color: white;
-        padding: 40px 20px;
-        text-align: center;
-      }
-
-      footer p {
-        color: #999;
-        margin-bottom: 10px;
-      }
-
-      footer a {
-        color: #667eea;
-        text-decoration: none;
-        margin: 0 10px;
-      }
-
-      footer a:hover {
-        text-decoration: underline;
-      }
-
-      /* ============ RESPONSIVE ============ */
-      @media (max-width: 768px) {
-        .menu {
-          display: none;
-          flex-direction: column;
-          position: absolute;
-          top: 60px;
-          left: 0;
-          width: 100%;
-          background: white;
-          gap: 15px;
-          padding: 20px;
-          border-top: 1px solid #eee;
-        }
-
-        .menu.active {
-          display: flex;
-        }
-
-        .menu-btn {
-          display: block;
-        }
-
-        .reveal h1 {
-          font-size: 36px;
-        }
-
-        .about-content {
-          grid-template-columns: 1fr;
-          gap: 30px;
-        }
-
-        .about-image {
-          height: 250px;
-        }
-
-        section h2 {
-          font-size: 28px;
-        }
-
-        table {
-          font-size: 12px;
-        }
-
-        th,
-        td {
-          padding: 10px;
-        }
-
-        .form-container {
-          padding: 25px;
-        }
-      }
-
-      /* ============ ALERT MESSAGES ============ */
-      .alert {
-        padding: 15px;
-        margin-bottom: 20px;
-        border-radius: 8px;
-        font-size: 14px;
-      }
-
-      .alert-success {
-        background-color: #d4edda;
-        color: #155724;
-        border: 1px solid #c3e6cb;
-      }
-
-      .alert-error {
-        background-color: #f8d7da;
-        color: #721c24;
-        border: 1px solid #f5c6cb;
-      }
-    </style>
+    <link rel="stylesheet" href="./index.css" />
   </head>
   <body>
-    <!-- Topbar -->
     <div class="topbar">
       <strong>SGIPC</strong> | Special Group Interested In Programming Contest
     </div>
-
-    <!-- Navbar -->
     <header class="navbar">
       <div class="container nav-wrap">
-        <a class="brand" href="#home">
-          <span>SGIPC</span> - Special Group Interested In Programming Contest
-        </a>
+        <a class="brand" href="#home"
+          ><span>SGIPC</span> - Special Group Interested In Programming
+          Contest</a
+        >
         <button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button>
         <ul class="menu" id="menu">
           <li><a href="#home">Home</a></li>
           <li><a href="#about">About</a></li>
-          <li><a href="#content-demo">Highlights</a></li>
-          <li><a href="#table-demo">Performance</a></li>
-          <li><a href="#list-demo">Practice Plan</a></li>
-          <li><a href="#form-demo">Join Us</a></li>
-          <li><a href="contests.php">Contests</a></li>
-          <li><a href="rankings.php">Rankings</a></li>
-          <li>
-            <a href="admin_login.php" style="color: #667eea; font-weight: 700"
-              >Admin</a
-            >
+          <li class="dropdown">
+            <a href="#" class="drop-link">Explore ▾</a>
+            <ul class="submenu">
+              <li><a href="#content-demo">Highlights</a></li>
+              <li><a href="#table-demo">Performance</a></li>
+              <li><a href="#list-demo">Practice Plan</a></li>
+              <li><a href="#form-demo">Join Us</a></li>
+            </ul>
           </li>
+          <li><a href="#contests">Contests</a></li>
+          <li><a href="#team-update">Team Update</a></li>
+          <li><a href="#team-rankings">Team Rankings</a></li>
+          <li><a href="#roadmap">Roadmap</a></li>
+          <li><a href="#resources">Resources</a></li>
+          <li><a href="#guidelines">Guidelines</a></li>
         </ul>
       </div>
     </header>
 
-    <!-- Main Content -->
     <main id="home" class="container">
-      <!-- Hero Section -->
       <section class="reveal">
         <p class="tagline">KUET reaching ICPC World Finals 2024</p>
-        <h1>Master Competitive Programming</h1>
-        <p>
-          Join SGIPC and become part of a thriving community of competitive
-          programmers at KUET
+        <h1>Our Achievements</h1>
+        <p class="muted">
+          Special Group Interested In Programming Contest members consistently
+          perform in regional and national contests, growing from beginner
+          coders to ICPC-ready teams with disciplined practice and a strong
+          problem-solving culture.
         </p>
-        <div class="cta-buttons">
-          <a href="#form-demo" class="btn btn-primary">Join Now</a>
-          <a href="contests.php" class="btn btn-secondary">View Contests</a>
+
+        <div class="achievement-gallery" aria-label="SGIPC achievements photos">
+          <article class="achievement-photo">
+            <h3>ICPC World Final 2024</h3>
+            <img
+              src="photo1.jpg?v=2"
+              alt="ICPC World Final 2024"
+              width="1200"
+              height="800"
+              title="ICPC World Final 2024"
+            />
+          </article>
+          <article class="achievement-photo">
+            <h3>ICPC Regional Dhaka 2025</h3>
+            <img
+              src="photo2.jpg?v=2"
+              alt="ICPC Regional Dhaka 2025"
+              width="1200"
+              height="800"
+              title="ICPC Regional Dhaka 2025"
+            />
+          </article>
+          <article class="achievement-photo">
+            <h3>Some of the Achievments of SGIPC together</h3>
+            <img
+              src="photo3.jpg?v=2"
+              alt="Achievements of SGIPC all together"
+              width="1200"
+              height="800"
+              title="Achievements of SGIPC all together"
+            />
+          </article>
         </div>
       </section>
 
-      <!-- About Section -->
-      <section id="about">
-        <h2>About SGIPC</h2>
-        <div class="about-content">
-          <div class="about-text">
-            <h3>Special Group Interested In Programming Contest</h3>
-            <p>
-              SGIPC is a dedicated community at KUET focused on competitive
-              programming excellence. We organize contests, workshops, and
-              mentoring sessions to help students develop their algorithmic and
-              problem-solving skills.
+      <section id="about" class="reveal">
+        <h2>About Special Group Interested In Programming Contest</h2>
+        <p class="muted">
+          Special Group Interested In Programming Contest is KUET's competitive
+          programming community focused on algorithmic excellence, ICPC
+          preparation, and a healthy Codeforces culture. We train through
+          topic-based sessions, contest simulations, post-contest upsolving, and
+          peer mentorship to help every member level up with clarity and
+          consistency.
+        </p>
+      </section>
+
+      <section id="content-demo" class="reveal">
+        <h2>Stories, Highlights and Useful Links</h2>
+        <div class="grid-2 demo-grid">
+          <article class="card">
+            <h3>Why SGIPC Matters</h3>
+            <p class="muted">
+              SGIPC helps students build algorithmic thinking, teamwork, and
+              contest discipline. With
+              <span class="text-accent">regular practice</span> and
+              <span class="text-accent">post-contest learning</span>, members
+              improve steadily.
             </p>
-            <ul>
-              <li>Regular online and offline contests</li>
-              <li>Experienced mentors and guidance</li>
-              <li>Resource sharing and learning materials</li>
-              <li>Team-based training for ICPC</li>
-              <li>Portfolio building through competitions</li>
-            </ul>
-          </div>
-          <div class="about-image">🚀</div>
+            <p class="muted" style="margin-top: 10px">
+              Visit
+              <a
+                class="inline-link"
+                href="https://codeforces.com"
+                target="_blank"
+                >Codeforces</a
+              >
+              and
+              <a class="inline-link" href="https://icpc.global" target="_blank"
+                >ICPC Global</a
+              >
+              for live contests and global standings.
+            </p>
+          </article>
+          <article class="card demo-images">
+            <h3>Featured Moments</h3>
+            <div class="featured-slideshow slideshow-container">
+              <div class="slideshow-slide fade active">
+                <img
+                  src="photo4.jpg?v=2"
+                  alt="KUET_Potol 4th position BUET IUPC 2026"
+                  width="640"
+                  height="420"
+                  title="KUET_Potol - BUET IUPC 2026"
+                />
+              </div>
+              <div class="slideshow-slide fade">
+                <img
+                  src="photo5.jpg?v=2"
+                  alt="Code_Monkeys 3rd position BUET IUPC 2023"
+                  width="640"
+                  height="420"
+                  title="Code_Monkeys - BUET IUPC 2023"
+                />
+              </div>
+              <div class="slideshow-slide fade">
+                <img
+                  src="photo6.jpg?v=2"
+                  alt="IKPC 2026 Championship"
+                  width="640"
+                  height="420"
+                  title="IKPC 2026"
+                />
+              </div>
+              <div class="slideshow-slide fade">
+                <img
+                  src="photo7.jpg?v=2"
+                  alt="ICPC Preliminary 2024 Rankings"
+                  width="640"
+                  height="420"
+                  title="ICPC Preliminary 2024"
+                />
+              </div>
+              <a class="slideshow-prev" onclick="changeFeaturedSlide(-1)">
+                &#10094;
+              </a>
+              <a class="slideshow-next" onclick="changeFeaturedSlide(1)">
+                &#10095;
+              </a>
+              <div class="slideshow-dots">
+                <span
+                  class="dot active"
+                  onclick="currentFeaturedSlide(1)"
+                ></span>
+                <span class="dot" onclick="currentFeaturedSlide(2)"></span>
+                <span class="dot" onclick="currentFeaturedSlide(3)"></span>
+                <span class="dot" onclick="currentFeaturedSlide(4)"></span>
+              </div>
+            </div>
+          </article>
         </div>
       </section>
 
-      <!-- Highlights Section -->
-      <section id="content-demo">
-        <h2>Why Join SGIPC?</h2>
-        <div class="highlights-grid">
-          <div class="highlight-card">
-            <div class="highlight-icon">🏆</div>
-            <h3>Competitions</h3>
-            <p>
-              Participate in regular contests and improve your problem-solving
-              skills
-            </p>
-          </div>
-          <div class="highlight-card">
-            <div class="highlight-icon">📚</div>
-            <h3>Learning</h3>
-            <p>
-              Access to study materials and learning resources curated by
-              experts
-            </p>
-          </div>
-          <div class="highlight-card">
-            <div class="highlight-icon">👥</div>
-            <h3>Community</h3>
-            <p>
-              Connect with like-minded programmers and collaborate on projects
-            </p>
-          </div>
-          <div class="highlight-card">
-            <div class="highlight-icon">🎓</div>
-            <h3>Mentorship</h3>
-            <p>Get guidance from experienced competitive programmers</p>
-          </div>
-          <div class="highlight-card">
-            <div class="highlight-icon">🌟</div>
-            <h3>Career Growth</h3>
-            <p>Build your portfolio and improve your job prospects</p>
-          </div>
-          <div class="highlight-card">
-            <div class="highlight-icon">💻</div>
-            <h3>Skills</h3>
-            <p>Master DSA, algorithms, and advanced programming techniques</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- Performance Table -->
-      <section id="table-demo">
-        <h2>Top Teams Performance</h2>
-        <div class="table-wrapper">
-          <table>
+      <section id="table-demo" class="reveal">
+        <h2>Recent Contest Performance</h2>
+        <div class="table-wrap">
+          <table class="styled-table" aria-label="SGIPC performance table">
             <thead>
               <tr>
-                <th>Rank</th>
-                <th>Team Name</th>
-                <th>Rating</th>
+                <th>Team</th>
+                <th>Contest</th>
                 <th>Solved</th>
-                <th>Status</th>
+                <th>Rank</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td><span class="rank-badge">1</span></td>
-                <td>KUET_Team1</td>
-                <td>2450</td>
-                <td>11</td>
-                <td>
-                  <span class="status-badge badge-confirmed">Confirmed</span>
-                </td>
+                <td>KUET_Effersvescent</td>
+                <td>ICPC WF 2024</td>
+                <td>3 Problems</td>
+                <td>110</td>
               </tr>
               <tr>
-                <td><span class="rank-badge">2</span></td>
-                <td>KUET_Team2</td>
-                <td>2385</td>
-                <td>10</td>
-                <td>
-                  <span class="status-badge badge-confirmed">Confirmed</span>
-                </td>
+                <td>KUET_Potol</td>
+                <td>BUET IUPC 2026</td>
+                <td>8 Problems</td>
+                <td>4</td>
               </tr>
               <tr>
-                <td><span class="rank-badge">3</span></td>
-                <td>KUET_Team3</td>
-                <td>2310</td>
-                <td>10</td>
-                <td>
-                  <span class="status-badge badge-confirmed">Confirmed</span>
-                </td>
-              </tr>
-              <tr>
-                <td><span class="rank-badge">4</span></td>
-                <td>KUET_Team4</td>
-                <td>2240</td>
-                <td>9</td>
-                <td>
-                  <span class="status-badge badge-confirmed">Confirmed</span>
-                </td>
-              </tr>
-              <tr>
-                <td><span class="rank-badge">5</span></td>
-                <td>KUET_Team5</td>
-                <td>2185</td>
-                <td>8</td>
-                <td><span class="status-badge badge-standby">Standby</span></td>
+                <td>Code_Monkeys</td>
+                <td>BUET IUPC 2023</td>
+                <td>7 Problems</td>
+                <td>3</td>
               </tr>
             </tbody>
           </table>
         </div>
       </section>
 
-      <!-- Practice Plan -->
-      <section id="list-demo">
-        <h2>Suggested Practice Roadmap</h2>
-        <div class="practice-list">
-          <div class="practice-item">
-            <h4>📌 Phase 1: Fundamentals (Weeks 1-4)</h4>
-            <p>
-              Master basic data structures and algorithms including arrays,
-              strings, linked lists, and sorting techniques.
-            </p>
-          </div>
-          <div class="practice-item">
-            <h4>📌 Phase 2: Intermediate (Weeks 5-12)</h4>
-            <p>
-              Learn trees, graphs, dynamic programming, and greedy algorithms
-              with real-world applications.
-            </p>
-          </div>
-          <div class="practice-item">
-            <h4>📌 Phase 3: Advanced (Weeks 13-20)</h4>
-            <p>
-              Study advanced topics like segment trees, advanced graph
-              algorithms, and optimization techniques.
-            </p>
-          </div>
-          <div class="practice-item">
-            <h4>📌 Phase 4: Contest Preparation (Weeks 21+)</h4>
-            <p>
-              Participate in real contests, practice under time pressure, and
-              refine your problem-solving strategies.
-            </p>
-          </div>
+      <section id="list-demo" class="reveal">
+        <h2>Practice Roadmap at a Glance</h2>
+        <div class="grid-2 demo-grid">
+          <article class="card">
+            <h3>Weekly Focus</h3>
+            <ul class="custom-list unordered-list">
+              <li>Two rated contests each week</li>
+              <li>Daily upsolving for missed problems</li>
+              <li>Topic revision on weekends</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Contest Routine</h3>
+            <ol class="custom-list ordered-list">
+              <li>Read all problems quickly</li>
+              <li>Select easiest solvable set</li>
+              <li>Implement and test carefully</li>
+              <li>Upsolve after contest ends</li>
+            </ol>
+          </article>
         </div>
       </section>
 
-      <!-- Join Form -->
-      <section id="form-demo">
-        <h2>Join Our Community</h2>
-        <div class="form-container">
-          <form action="request_join.php" method="POST">
-            <div class="form-group">
-              <label for="full-name">Full Name *</label>
-              <input type="text" id="full-name" name="full_name" required />
-            </div>
+      <section id="form-demo" class="reveal">
+        <h2>Join the SGIPC Community</h2>
+        <p id="formFeedback" class="muted" style="margin-top: -2px"></p>
+        <form
+          class="card form-grid"
+          id="sgipcForm"
+          action="submit_registration.php"
+          method="post"
+          target="_self"
+        >
+          <div class="field">
+            <label for="fullName">Full Name</label>
+            <input
+              type="text"
+              id="fullName"
+              name="fullName"
+              placeholder="Enter your name"
+              required
+            />
+          </div>
 
-            <div class="form-group">
-              <label for="email">Email Address *</label>
-              <input type="email" id="email" name="email" required />
-            </div>
+          <div class="field">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Enter password"
+              required
+            />
+          </div>
 
-            <div class="form-group">
-              <label>Interests *</label>
-              <div class="checkbox-group">
-                <div class="checkbox-item">
-                  <input type="checkbox" id="cp" name="interest" value="cp" />
-                  <label for="cp">Competitive Programming</label>
+          <div class="field">
+            <p class="field-title">Gender</p>
+            <div class="inline-options">
+              <label>
+                <input type="radio" name="gender" value="male" required />
+                Male
+              </label>
+              <label>
+                <input type="radio" name="gender" value="female" /> Female
+              </label>
+            </div>
+          </div>
+
+          <div class="field">
+            <p class="field-title">Interests</p>
+            <div class="inline-options">
+              <label>
+                <input type="checkbox" name="interest[]" value="cp" />
+                Competitive Programming
+              </label>
+              <label>
+                <input type="checkbox" name="interest[]" value="ai" /> AI
+              </label>
+              <label>
+                <input type="checkbox" name="interest[]" value="web" /> Web
+                Development
+              </label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="level">Current Level</label>
+            <select id="level" name="level" required>
+              <option value="">Select level</option>
+              <option>Beginner</option>
+              <option>Intermediate</option>
+              <option>Advanced</option>
+            </select>
+          </div>
+
+          <div class="field full-width">
+            <label for="message">Message</label>
+            <textarea
+              id="message"
+              name="message"
+              rows="4"
+              placeholder="Write your expectations from SGIPC"
+            ></textarea>
+          </div>
+
+          <div class="full-width">
+            <button class="submit-btn" type="submit">
+              <span>Submit Registration</span>
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <section id="contests" class="reveal">
+        <h2>Contests & Rankings</h2>
+        <div class="grid-3">
+          <article class="card">
+            <h3>🏁 Total Contests Held</h3>
+            <p class="muted">
+              Regular in-house and seasonal practice rounds across multiple
+              difficulty brackets.
+            </p>
+            <p style="font-size: 1.7rem; font-weight: 700; margin-top: 8px">
+              25+
+            </p>
+          </article>
+          <article class="card">
+            <h3>📅 Upcoming Contest</h3>
+            <p class="muted">
+              Next event is the Team Formation Round, designed for synergy,
+              speed, and role selection.
+            </p>
+            <p style="margin-top: 8px; color: var(--ok); font-weight: 700">
+              Registration Open
+            </p>
+          </article>
+          <article class="card">
+            <h3>📊 Internal Ranking</h3>
+            <p class="muted">
+              Ranking combines recent contest points, upsolving consistency, and
+              participation for stable growth.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="team-update" class="reveal">
+        <h2>Team Formation Contest Update KUET</h2>
+        <article class="card">
+          <p class="muted">
+            The Team Formation Contest update focuses on building balanced teams
+            for upcoming ICPC practice season at KUET. Participants are being
+            grouped based on recent contest ratings, problem-solving style, and
+            consistency in upsolving.
+          </p>
+          <div class="grid-3 update-grid">
+            <div>
+              <h3>Selection Criteria</h3>
+              <ul class="resource-list">
+                <li>Recent in-house contest performance</li>
+                <li>Codeforces consistency and growth trend</li>
+                <li>Communication and teamwork</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Current Status</h3>
+              <ul class="resource-list">
+                <li>Round 1 screening completed</li>
+                <li>Mock team round in progress</li>
+                <li>Final team list publishing soon</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Next Timeline</h3>
+              <ul class="resource-list">
+                <li>Team lock date: Next Friday</li>
+                <li>Weekly 5-hour simulation starts</li>
+                <li>Mentor assignment after finalization</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section id="team-rankings" class="reveal">
+        <h2>Team Formation Rankings</h2>
+        <div class="grid-2 demo-grid">
+          <article class="card">
+            <h3>Current Standings</h3>
+            <p class="muted">
+              Standings pulled from the SGIPC MySQL database, representing team performance in the formation round.
+            </p>
+            <div class="table-wrap">
+              <table
+                class="styled-table"
+                aria-label="Team formation ranking snapshot"
+              >
+                <thead>
+                  <tr>
+                    <th>Team</th>
+                    <th>Rank</th>
+                    <th>Rating</th>
+                    <th>Solved</th>
+                  </tr>
+                </thead>
+                <tbody id="rankings-table-body">
+                  <tr>
+                    <td>KUET_Team1</td>
+                    <td>1</td>
+                    <td>2450</td>
+                    <td>11</td>
+                  </tr>
+                  <tr>
+                    <td>KUET_Team2</td>
+                    <td>2</td>
+                    <td>2385</td>
+                    <td>10</td>
+                  </tr>
+                  <tr>
+                    <td>KUET_Team3</td>
+                    <td>3</td>
+                    <td>2310</td>
+                    <td>10</td>
+                  </tr>
+                  <tr>
+                    <td>KUET_Team4</td>
+                    <td>4</td>
+                    <td>2240</td>
+                    <td>9</td>
+                  </tr>
+                  <tr>
+                    <td>KUET_Team5</td>
+                    <td>5</td>
+                    <td>2185</td>
+                    <td>8</td>
+                  </tr>
+                  <tr>
+                    <td>KUET_Team6</td>
+                    <td>6</td>
+                    <td>2100</td>
+                    <td>8</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+
+          <article class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <h3>Database & Administration</h3>
+              <p class="muted" style="margin-top: 10px;">
+                SGIPC uses a MySQL database to store team rankings, track solved problems, and manage registrations.
+              </p>
+              <div style="margin-top: 20px; padding: 16px; border-radius: 12px; background: rgba(10, 18, 35, 0.4); border: 1px solid var(--line);">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+                  <span style="font-weight: 600;">MySQL Connection:</span>
+                  <span id="db-status-badge" style="font-size: 0.8rem; padding: 4px 10px; border-radius: 999px; background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.35); color: #f5a5a5; font-weight: 600; transition: all 0.3s;">Connecting...</span>
                 </div>
-                <div class="checkbox-item">
-                  <input type="checkbox" id="ai" name="interest" value="ai" />
-                  <label for="ai">AI & Machine Learning</label>
-                </div>
-                <div class="checkbox-item">
-                  <input type="checkbox" id="web" name="interest" value="web" />
-                  <label for="web">Web Development</label>
-                </div>
-                <div class="checkbox-item">
-                  <input
-                    type="checkbox"
-                    id="mobile"
-                    name="interest"
-                    value="mobile"
-                  />
-                  <label for="mobile">Mobile Development</label>
-                </div>
-                <div class="checkbox-item">
-                  <input
-                    type="checkbox"
-                    id="devops"
-                    name="interest"
-                    value="devops"
-                  />
-                  <label for="devops">DevOps & Cloud</label>
-                </div>
+                <p id="db-status-desc" class="muted" style="font-size: 0.85rem;">
+                  Attempting to connect to the live backend server.
+                </p>
               </div>
             </div>
-
-            <div class="form-group">
-              <label for="message">Message *</label>
-              <textarea
-                id="message"
-                name="message"
-                required
-                placeholder="Tell us why you want to join SGIPC..."
-              ></textarea>
+            <div style="margin-top: 20px; display: flex; gap: 12px; flex-wrap: wrap;">
+              <a href="team-rankings.php" class="inline-link" style="padding: 10px 16px; border: 1px solid var(--line); border-radius: 10px; background: rgba(255,255,255,0.02); text-decoration: none; font-size: 0.9rem; transition: background 0.2s;">Live Rankings Page</a>
+              <a href="admin.php" class="inline-link" style="padding: 10px 16px; border: 1px solid var(--accent); border-radius: 10px; background: rgba(217, 177, 95, 0.08); text-decoration: none; font-size: 0.9rem; transition: background 0.2s;">Admin Dashboard</a>
             </div>
-
-            <button type="submit" class="form-submit">Submit Request</button>
-          </form>
+          </article>
         </div>
       </section>
 
-      <!-- Team Update Section -->
-      <section id="team-update">
-        <h2>Latest Team Updates</h2>
-        <div class="update-grid">
-          <div class="update-card">
-            <div class="update-date">June 5, 2026</div>
-            <h4>🎯 Qualification Round Results</h4>
-            <p>
-              Congratulations to all teams who participated in the qualification
-              round. Results are now available on the rankings page.
+      <section id="roadmap" class="reveal">
+        <h2>Learning Roadmap</h2>
+        <div class="grid-3">
+          <article class="card">
+            <h3>🟢 Road to Candidate Master</h3>
+            <p class="muted">
+              1900+: implementation, greedy basics, brute force optimization,
+              beginner graphs.
             </p>
-          </div>
-          <div class="update-card">
-            <div class="update-date">May 28, 2026</div>
-            <h4>📚 New Learning Resources</h4>
-            <p>
-              We've added new practice problem sets and video tutorials covering
-              advanced graph algorithms and dynamic programming.
+            <div class="progress-box">
+              <div class="progress" style="width: 62%"></div>
+            </div>
+          </article>
+          <article class="card">
+            <h3>🔵 Road to Expert (Blue)</h3>
+            <p class="muted">
+              1600+: binary search answers, two pointers, constructive problem
+              solving.
             </p>
-          </div>
-          <div class="update-card">
-            <div class="update-date">May 20, 2026</div>
-            <h4>🏆 Team Formation Complete</h4>
-            <p>
-              All teams for ICPC preparation have been finalized. Training
-              begins next week with daily practice sessions.
+            <div class="progress-box">
+              <div class="progress" style="width: 46%"></div>
+            </div>
+          </article>
+          <article class="card">
+            <h3>🔶 Road to Master</h3>
+            <p class="muted">
+              2100+: DP patterns, segment trees, graph optimization, contest
+              strategy.
             </p>
-          </div>
+            <div class="progress-box">
+              <div class="progress" style="width: 32%"></div>
+            </div>
+          </article>
         </div>
+      </section>
+
+      <section id="resources" class="reveal">
+        <h2>Resources</h2>
+        <div class="grid-3">
+          <article class="card">
+            <h3>🌱 Beginner</h3>
+            <ul class="resource-list">
+              <li>Codeforces Problemset (A-B levels)</li>
+              <li>CSES Introductory + Sorting</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>⚙️ Intermediate</h3>
+            <ul class="resource-list">
+              <li>USACO Guide (Silver/Gold)</li>
+              <li>AtCoder Beginner + Regular Contests</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>🚀 Advanced</h3>
+            <ul class="resource-list">
+              <li>ICPC Archive Practice Sets</li>
+              <li>Advanced DP and Geometry Sheets</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section id="guidelines" class="reveal">
+        <h2>Guidelines for New Members</h2>
+        <p class="guide">
+          Start with consistency, not intensity. Solve a few problems daily,
+          join regular contests, and always upsolve the problems you miss. Read
+          editorials actively, re-implement ideas without copying, and maintain
+          a notebook of recurring techniques. Over time, this
+          contest-plus-upsolving loop builds speed, accuracy, and deep
+          intuition.
+        </p>
       </section>
     </main>
 
-    <!-- Footer -->
     <footer>
       <p>
-        &copy; 2026 SGIPC - Special Group Interested In Programming Contest |
-        KUET
+        &copy; 2026 Special Group Interested In Programming Contest KUET |
+        Competitive Programming Community
       </p>
-      <div>
-        <a href="#">About</a>
-        <a href="#">Contact</a>
-        <a href="#">Terms</a>
-        <a href="#">Privacy</a>
-      </div>
+      <p>Contact: +880 1712-345678</p>
     </footer>
 
-    <!-- JavaScript for Mobile Menu -->
     <script>
       const menuBtn = document.getElementById('menuBtn');
       const menu = document.getElementById('menu');
+      menuBtn.addEventListener('click', () => menu.classList.toggle('open'));
+      menu
+        .querySelectorAll('a')
+        .forEach((a) =>
+          a.addEventListener('click', () => menu.classList.remove('open'))
+        );
 
-      menuBtn.addEventListener('click', function () {
-        menu.classList.toggle('active');
-      });
+      // Small reveal effect with very short logic.
+      const sections = document.querySelectorAll('.reveal');
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e, i) => {
+            if (e.isIntersecting) {
+              e.target.style.transitionDelay = `${i * 80}ms`;
+              e.target.classList.add('show');
+              io.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.15 }
+      );
+      sections.forEach((s) => io.observe(s));
 
-      // Close menu when a link is clicked
-      const menuLinks = menu.querySelectorAll('a');
-      menuLinks.forEach((link) => {
-        link.addEventListener('click', function () {
-          menu.classList.remove('active');
+      const formFeedback = document.getElementById('formFeedback');
+      const params = new URLSearchParams(window.location.search);
+      const status = params.get('status');
+      const message = params.get('message');
+      if (formFeedback && status && message) {
+        formFeedback.textContent = message;
+        formFeedback.style.color = status === 'success' ? '#b9f5c8' : '#f5d0d0';
+        formFeedback.style.padding = '10px 12px';
+        formFeedback.style.borderRadius = '12px';
+        formFeedback.style.border =
+          status === 'success'
+            ? '1px solid rgba(72, 187, 120, 0.4)'
+            : '1px solid rgba(239, 68, 68, 0.35)';
+        formFeedback.style.background =
+          status === 'success'
+            ? 'rgba(72, 187, 120, 0.12)'
+            : 'rgba(239, 68, 68, 0.1)';
+      }
+
+      // Main achievement slideshow
+      let slideIndex = 1;
+      let slideTimer;
+      function showSlides(n) {
+        const slides = document.querySelectorAll(
+          '.achievement-gallery .slideshow-slide'
+        );
+        const dots = document.querySelectorAll('.achievement-gallery .dot');
+        if (n > slides.length) {
+          slideIndex = 1;
+        }
+        if (n < 1) {
+          slideIndex = slides.length;
+        }
+        slides.forEach((slide) => {
+          slide.classList.remove('active');
         });
-      });
-
-      // Smooth scrolling for anchor links
-      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-        anchor.addEventListener('click', function (e) {
-          e.preventDefault();
-          const target = document.querySelector(this.getAttribute('href'));
-          if (target) {
-            target.scrollIntoView({
-              behavior: 'smooth',
-              block: 'start',
-            });
-          }
+        dots.forEach((dot) => {
+          dot.classList.remove('active');
         });
-      });
+        if (slides[slideIndex - 1]) {
+          slides[slideIndex - 1].classList.add('active');
+        }
+        if (dots[slideIndex - 1]) {
+          dots[slideIndex - 1].classList.add('active');
+        }
+      }
+      function changeSlide(n) {
+        clearTimeout(slideTimer);
+        showSlides((slideIndex += n));
+        autoSlide();
+      }
+      function currentSlide(n) {
+        clearTimeout(slideTimer);
+        showSlides((slideIndex = n));
+        autoSlide();
+      }
+      function autoSlide() {
+        slideTimer = setTimeout(() => {
+          slideIndex += 1;
+          showSlides(slideIndex);
+          autoSlide();
+        }, 5000);
+      }
+
+      // Featured moments slideshow
+      let featuredSlideIndex = 1;
+      let featuredSlideTimer;
+      function showFeaturedSlides(n) {
+        const slides = document.querySelectorAll(
+          '.featured-slideshow .slideshow-slide'
+        );
+        const dots = document.querySelectorAll('.featured-slideshow .dot');
+        if (n > slides.length) {
+          featuredSlideIndex = 1;
+        }
+        if (n < 1) {
+          featuredSlideIndex = slides.length;
+        }
+        slides.forEach((slide) => {
+          slide.classList.remove('active');
+        });
+        dots.forEach((dot) => {
+          dot.classList.remove('active');
+        });
+        if (slides[featuredSlideIndex - 1]) {
+          slides[featuredSlideIndex - 1].classList.add('active');
+        }
+        if (dots[featuredSlideIndex - 1]) {
+          dots[featuredSlideIndex - 1].classList.add('active');
+        }
+      }
+      function changeFeaturedSlide(n) {
+        clearTimeout(featuredSlideTimer);
+        showFeaturedSlides((featuredSlideIndex += n));
+        autoFeaturedSlide();
+      }
+      function currentFeaturedSlide(n) {
+        clearTimeout(featuredSlideTimer);
+        showFeaturedSlides((featuredSlideIndex = n));
+        autoFeaturedSlide();
+      }
+      function autoFeaturedSlide() {
+        featuredSlideTimer = setTimeout(() => {
+          featuredSlideIndex += 1;
+          showFeaturedSlides(featuredSlideIndex);
+          autoFeaturedSlide();
+        }, 5000);
+      }
+
+      // Initialize both slideshows
+      showSlides(slideIndex);
+      autoSlide();
+      showFeaturedSlides(featuredSlideIndex);
+      autoFeaturedSlide();
+
+      // Live Database Standings Dynamic Loader
+      function loadLiveStandings() {
+        const tableBody = document.getElementById('rankings-table-body');
+        const statusBadge = document.getElementById('db-status-badge');
+        const statusDesc = document.getElementById('db-status-desc');
+
+        if (!tableBody) return;
+
+        fetch('team-rankings.php?format=json')
+          .then(response => {
+            if (!response.ok) throw new Error('Network response error');
+            return response.json();
+          })
+          .then(data => {
+            if (data.status === 'success') {
+              statusBadge.textContent = 'Connected';
+              statusBadge.style.background = 'rgba(72, 187, 120, 0.15)';
+              statusBadge.style.border = '1px solid rgba(72, 187, 120, 0.4)';
+              statusBadge.style.color = '#c6f6d5';
+              statusDesc.textContent = 'Successfully loaded live data from MySQL.';
+            } else {
+              statusBadge.textContent = 'Fallback Mode';
+              statusBadge.style.background = 'rgba(217, 177, 95, 0.15)';
+              statusBadge.style.border = '1px solid rgba(217, 177, 95, 0.4)';
+              statusBadge.style.color = '#fef3c7';
+              statusDesc.textContent = data.error || 'Using default standings (MySQL empty or loading fallback).';
+            }
+
+            if (data.teams && data.teams.length > 0) {
+              let rows = '';
+              data.teams.forEach(team => {
+                rows += `
+                  <tr>
+                    <td style="font-weight: 600;">${escapeHtml(team.team_name)}</td>
+                    <td>${parseInt(team.overall_rank)}</td>
+                    <td style="color: var(--accent-soft); font-weight: 700;">${parseInt(team.rating)}</td>
+                    <td>${parseInt(team.solved_count)} Problems</td>
+                  </tr>
+                `;
+              });
+              tableBody.innerHTML = rows;
+            }
+          })
+          .catch(err => {
+            statusBadge.textContent = 'Static Fallback';
+            statusBadge.style.background = 'rgba(239, 68, 68, 0.12)';
+            statusBadge.style.border = '1px solid rgba(239, 68, 68, 0.35)';
+            statusBadge.style.color = '#f5a5a5';
+            statusDesc.textContent = 'Database offline or server not started. Showing static standings.';
+            console.log('Database rankings query failed: ', err);
+          });
+      }
+
+      function escapeHtml(str) {
+        return String(str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#039;');
+      }
+
+      // Run loader on load
+      document.addEventListener('DOMContentLoaded', loadLiveStandings);
+      // Also run it immediately in case DOMContentLoaded already fired
+      loadLiveStandings();
     </script>
   </body>
 </html>
